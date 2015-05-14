@@ -206,7 +206,8 @@ module RightScale
             when host[    /s3-website-([^.]+)\.amazonaws\.com$/i ] then ['s3',           $1]
             when host[     /^(.*\.)?s3-([^.]+).amazonaws\.com$/i ] then ['s3',           $2]
             when host[   /^(.*\.)?s3\.([^.]+)\.amazonaws\.com$/i ] then ['s3',           $2]
-            else host[     /^([^.]+)\.([^.]+)\.amazonaws\.com$/i ]   && [$1,             $2]
+            when host[     /^([^.]+)\.([^.]+)\.amazonaws\.com$/i ]   && [$1,             $2]
+            else host[     /^([^.]+)\.([^.]+)/i ]   && [$1,             $2]
             end
           fail(ArgumentError, "Cannot extract service name from %s host" % host.inspect) if !result || result[0].to_s.empty?
           fail(ArgumentError, "Cannot extract region name from %s host"  % host.inspect) if result[1].to_s.empty?
